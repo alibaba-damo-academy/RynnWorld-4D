@@ -64,17 +64,17 @@ RynnWorld-4D/
     └── da3/                             # Depth-Anything-3 (required for policy only)
 ```
 
-**1️⃣. Wan2.2-TI2V-5B** — the required base backbone for world-model training and inference.
+**1️⃣ Wan2.2-TI2V-5B** — the required base backbone for world-model training and inference.
 ```bash
 huggingface-cli download Wan-AI/Wan2.2-TI2V-5B-Diffusers --local-dir ./pretrained/Wan2.2-TI2V-5B-Diffusers
 ```
 
-**2️⃣. RynnWorld-4D released weights** (optional) — skip training and directly run inference / policy.
+**2️⃣ RynnWorld-4D released weights** (optional) — skip training and directly run inference / policy.
 ```bash
 huggingface-cli download Alibaba-DAMO-Academy/RynnWorld-4D --local-dir ./pretrained/RynnWorld-4D
 ```
 
-**.3️⃣  Depth-Anything-3** (only for `RynnWorld-4D-Policy`) — on-device depth estimation at policy inference time.
+**3️⃣  Depth-Anything-3** (only for `RynnWorld-4D-Policy`) — on-device depth estimation at policy inference time.
 ```bash
 huggingface-cli download depth-anything/Depth-Anything-3 --local-dir ./pretrained/da3
 ```
