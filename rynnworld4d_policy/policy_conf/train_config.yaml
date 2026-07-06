@@ -1,0 +1,153 @@
+defaults:
+  - datamodule: tianji
+
+root_data_dir: ../data/tianji_sample
+depth_root_dir: ../data/tianji_sample_depth
+
+log_dir: ./logs/rynnworld4d_fm_tianji_stage2
+slurm: false
+seed: 242
+device: 'cuda'
+batch_size: 1
+devices: 1
+max_epochs: 50
+log_every: 50
+limit_train_batches: 5000
+limit_val_batches: 50
+num_workers: 2
+benchmark_name: tianji_pick_place_stage2
+use_ckpt_path: false
+ckpt_path: ''
+act_seq_len: 10
+obs_seq_len: 1
+skip_frames: 1
+wan_height: 480
+wan_width: 640
+text_embedding_path: ./text_embeddings/pick_up.safetensors
+
+model:
+  _target_: policy_models.vpp_policy.VPP_Policy
+  _recursive_: false
+  latent_dim: 384
+  multistep: 10
+  sampler_type: 'ddim'
+  num_sampling_steps: 10
+  sigma_data: 0.5
+  sigma_min: 0.001
+  sigma_max: 80
+  noise_scheduler: 'exponential'
+  sigma_sample_density_type: 'loglogistic'
+  use_lr_scheduler: true
+  act_window_size: 10
+  obs_seq_len: ${obs_seq_len}
+  use_text_not_embedding: True
+  seed: ${seed}
+
+  # Policy head: flow matching with 4-step Euler ODE
+  policy_type: flow_matching
+  num_inference_steps: 4
+  proprio_dim: 54
+  goal_seq_len: 32
+  text_max_length: 77
+
+  # Action — Tianji dual-arm 54 dim
+  action_dim: 54
+  action_seq_len: ${act_seq_len}
+
+  # Single camera (head only, no gripper)
+  use_gripper: false
+
+  # Video_Former
+  Former_depth: 6
+  Former_heads: 8
+  Former_dim_head: 64
+  Former_num_time_embeds: 21
+  num_latents: 336
+  use_Former: 3d
+  use_position_encoding: False
+
+  # RynnWorld4D backbone (3-branch: video + depth + flow, stage2 joint attention)
+  backbone: rynnworld4d
+  # TODO(user): download Wan2.2-TI2V-5B-Diffusers from HuggingFace and point to it.
+  #   e.g. huggingface-cli download Wan-AI/Wan2.2-TI2V-5B-Diffusers --local-dir ./pretrained/Wan2.2-TI2V-5B-Diffusers
+  pretrained_model_path: PATH/TO/Wan2.2-TI2V-5B-Diffusers
+  text_encoder_path: ''
+  wan_extract_block_idx: 15
+  wan_height: ${wan_height}
+  wan_width: ${wan_width}
+  wan_num_frames: 81
+  # TODO(user): point to your stage-3 RynnWorld4D world-model checkpoint
+  # (produced by scripts/rynnworld4d-stage3.sh, e.g. .../checkpoint-2000).
+  rynnworld4d_ckpt: PATH/TO/rynnworld4d-stage3-checkpoint
+  sft_ckpt_path: ./rynnworld4d
+  rynnworld4d_fusion_mode: joint
+  rynnworld4d_share_ffn: false
+  rynnworld4d_zero_fusion: false
+  rynnworld4d_joint_start_layer: 0
+  rynnworld4d_joint_end_layer: 30
+  rynnworld4d_joint_every_n_layers: 3
+  rynnworld4d_joint_frame_wise: true
+  rynnworld4d_joint_use_rope: true
+  rynnworld4d_joint_unidirectional: false
+  # Early-exit: only run the first N transformer blocks (features extracted at
+  # block 15, so layers beyond N are skipped to save compute).
+  wan_num_inference_layers: 20
+
+  # Deployment: int8-quantize DA3 depth model (bitsandbytes, weight-only) to
+  # save GPU memory. When true, DA3 stays resident on GPU (no CPU offload).
+  da3_quantize: true
+
+  # Single-step extraction
+  timestep: 500
+  max_length: 512
+  extract_layer_idx: 1
+  use_all_layer: False
+
+  optimizer:
+    _target_: torch.optim.AdamW
+    transformer_weight_decay: 0.05
+    obs_encoder_weight_decay: 0.05
+    learning_rate: 1e-4
+    betas: [0.9, 0.9]
+  lr_scheduler:
+    lr_scheduler:
+      init_lr: 1e-4
+      init_lr_scale: 0.1
+      final_lr_scale: 1e-6
+      total_steps: 250000
+      phase_ratio: "(0.02, 0.08, 0.9)"
+      lr: 1e-4
+
+trainer:
+  gpus: ${devices}
+  precision: 16
+  max_epochs: ${max_epochs}
+  sync_batchnorm: false
+  accelerator: auto
+  limit_train_batches: 3000
+  limit_val_batches: 4
+
+logger:
+  _target_: pytorch_lightning.loggers.WandbLogger
+  save_dir: .
+  name: logger
+  group: models
+  log_model: false
+  project: ${benchmark_name}
+  id: ???
+
+hydra:
+  run:
+    dir: ${log_dir}/runs/${now:%Y-%m-%d}/${now:%H-%M-%S}
+  sweep:
+    dir: ${log_dir}/runs/${now:%Y-%m-%d}/${now:%H-%M-%S}
+    subdir: ${hydra.job.override_dirname}
+  job:
+    config:
+      override_dirname:
+        exclude_keys:
+          - log_dir
+          - trainer.gpus
+          - datamodule.num_workers
+          - trainer.limit_train_batches
+          - trainer.limit_val_batches

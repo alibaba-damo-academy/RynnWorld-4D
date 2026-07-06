@@ -1,0 +1,16 @@
+_target_: policy_models.datasets.tianji_dataset.TianjiDataModule
+_recursive_: false
+
+data_dir: ${root_data_dir}
+action_col: action
+action_seq_len: ${act_seq_len}
+obs_seq_len: ${obs_seq_len}
+height: ${wan_height}
+width: ${wan_width}
+skip_frames: ${skip_frames}
+batch_size: ${batch_size}
+num_workers: ${num_workers}
+val_ratio: 0.1
+seed: ${seed}
+text_embedding_path: ${text_embedding_path}
+depth_data_dir: ${depth_root_dir}

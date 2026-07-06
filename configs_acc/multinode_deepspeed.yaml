@@ -1,0 +1,13 @@
+compute_environment: 'LOCAL_MACHINE'
+distributed_type: 'DEEPSPEED'
+num_processes: ${NPROC_PER_NODE}      # 从环境变量读取每台机器的GPU数
+num_machines: ${WORLD_SIZE}          # 从环境变量读取总机器数
+machine_rank: ${RANK}                # 从环境变量读取当前机器的排名
+main_process_ip: ${MASTER_ADDR}      # 从环境变量读取主节点IP
+main_process_port: ${MASTER_PORT}    # 从环境变量读取主节点端口
+deepspeed_config:
+  deepspeed_config_file: configs_zero/zero2_offload.yaml
+  zero3_init_flag: false 
+  deepspeed_multinode_launcher: standard
+# mixed_precision: 'bf16'
+# find_unused_parameters: false

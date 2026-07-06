@@ -1,0 +1,17 @@
+[
+  {
+    "rgb_latents": "data/sample_latents/agibot_0_rgb.safetensors",
+    "prompt": "The robot uses its left arm to pick up a red apple from a basket and places it into a shopping cart.",
+    "flow_depth_latents": "data/sample_latents/agibot_0_flow_depth.safetensors"
+  },
+  {
+    "rgb_latents": "data/sample_latents/agibot_1_rgb.safetensors",
+    "prompt": "The robot uses its right arm to pick up a pear from a wooden tray and places it into a shopping cart.",
+    "flow_depth_latents": "data/sample_latents/agibot_1_flow_depth.safetensors"
+  },
+  {
+    "rgb_latents": "data/sample_latents/agibot_4_rgb.safetensors",
+    "prompt": "The robot uses its right arm to pick up a pear from a wooden tray and places it into a shopping cart.",
+    "flow_depth_latents": "data/sample_latents/agibot_4_flow_depth.safetensors"
+  }
+]
