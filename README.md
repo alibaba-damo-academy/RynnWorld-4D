@@ -6,7 +6,7 @@
 
 
 <p align="center">
-       💫 <a href="https://alibaba-damo-academy.github.io/RynnWorld-4D.github.io/"><b>Project Page</b></a>&nbsp;&nbsp; | &nbsp;&nbsp; 🤗 <a href ="https://huggingface.co/models/Alibaba-DAMO-Academy/RynnWorld-4D"><b> Hugging Face </b></a> &nbsp;&nbsp; | &nbsp;&nbsp; 🤖 <a href = "https://www.modelscope.cn/models/DAMO_Academy/RynnWorld-4D"><b> ModelScope</b></a>  &nbsp;| &nbsp;&nbsp; 📄 <a href="">arXiv</a>&nbsp;&nbsp;
+       💫 <a href="https://alibaba-damo-academy.github.io/RynnWorld-4D.github.io/"><b>Project Page</b></a>&nbsp;&nbsp; | &nbsp;&nbsp; 🤗 <a href ="https://huggingface.co/models/Alibaba-DAMO-Academy/RynnWorld-4D"><b> Hugging Face </b></a> &nbsp;&nbsp; | &nbsp;&nbsp; 🤖 <a href = "https://www.modelscope.cn/models/DAMO_Academy/RynnWorld-4D"><b> ModelScope</b></a>  &nbsp;| &nbsp;&nbsp; 📄 <a href="https://arxiv.org/abs/2607.06559"><b>arXiv</b></a>&nbsp;&nbsp;
 
 </p>
 
@@ -29,7 +29,7 @@ We present **RynnWorld-4D**, a novel 4D embodied world model that shifts the par
 ---
 
 ## 📰 News
-* **[2026.07.08]**  🔥🔥 Release our <a href="https://alibaba-damo-academy.github.io/RynnWorld-4D.github.io/assets/RynnWorld-4D_Report.pdf">Technical Report</a> !!
+* **[2026.07.08]**  🔥🔥 Release our <a href="https://arxiv.org/pdf/2607.06559">Technical Report</a> !!
 * **[2026.07.07]**  🔥🔥 Release our code and model checkpoints!!
 
 ---
@@ -182,7 +182,8 @@ If you find this project useful, please cite:
 ```bibtex
 @article{rynnworld4d,
   title  = {RynnWorld-4D: 4D Embodied World Models for Robotic Manipulation},
-  author = {DAMO Academy, Alibaba Group},
+  author = {Haoyu Zhao and Xingyue Zhao and Siteng Huang and Xin Li and Deli Zhao and Zhongyu Li},
+  journal= {arXiv preprint arXiv:2607.06559},
   year   = {2026},
 }
 ```
