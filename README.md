@@ -6,7 +6,7 @@
 
 
 <p align="center">
-       💫 <a href="https://alibaba-damo-academy.github.io/RynnWorld-4D.github.io/"><b>Project Page</b></a>&nbsp;&nbsp; | &nbsp;&nbsp; 🤗 <a href ="https://huggingface.co/models/Alibaba-DAMO-Academy/RynnWorld-4D"><b> Hugging Face </b></a> &nbsp;&nbsp; | &nbsp;&nbsp; 🤖 <a href = "https://www.modelscope.cn/models/DAMO_Academy/RynnWorld-4D"><b> ModelScope</b></a>  &nbsp;| &nbsp;&nbsp; 📄 <a href="https://arxiv.org/abs/2607.06559"><b>arXiv</b></a>&nbsp;&nbsp;
+       💫 <a href="https://alibaba-damo-academy.github.io/RynnWorld-4D.github.io/"><b>Project Page</b></a>&nbsp;&nbsp; | &nbsp;&nbsp; 🤗 <a href ="https://huggingface.co/Alibaba-DAMO-Academy/RynnWorld-4D"><b> Hugging Face </b></a> &nbsp;&nbsp; | &nbsp;&nbsp; 🤖 <a href = "https://www.modelscope.cn/models/DAMO_Academy/RynnWorld-4D"><b> ModelScope</b></a>  &nbsp;| &nbsp;&nbsp; 📄 <a href="https://arxiv.org/abs/2607.06559"><b>arXiv</b></a>&nbsp;&nbsp;
 
 </p>
 
